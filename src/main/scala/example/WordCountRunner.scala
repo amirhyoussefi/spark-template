@@ -1,3 +1,5 @@
+package example
+
 import org.apache.spark.SparkContext._
 
 object WordCountRunner {

@@ -1,3 +1,5 @@
+package example
+
 import org.apache.spark.mllib.clustering.KMeans
 import org.apache.spark.util.Vector
 
