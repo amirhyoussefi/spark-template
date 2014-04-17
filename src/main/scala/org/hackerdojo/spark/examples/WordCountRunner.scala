@@ -7,21 +7,24 @@ object WordCountRunner {
   def main(args: Array[String]) {
     val sc = Helper.getSparkContext(args)
 
-    //    val lines = sc.textFile("./test-data/some_text.txt", 3)
-    val wordCountPairs = sc.textFile("/Users/damirv/Downloads/docword.nytimes.txt")
-      .map(l => {
+    val lines = sc.textFile("./test-data/some_text.txt", 3)
+    val wordCountPairs = lines.flatMap(l => {
       val splitted = l.split(" ")
-      (splitted(1).trim.toInt, splitted(2).trim.toInt)
+      splitted.map(word => (word, 1))
     })
 
-    val res = wordCountPairs.reduceByKey((x:Int, y:Int) => {
+    // word counts
+    val wordCounts = wordCountPairs.reduceByKey((x: Int, y: Int) => {
       x + y
-    }, 10).collect()
+    }, 10)
 
-    res.take(200).foreach(println(_))
+    // write out partitions as text files
+    wordCounts.saveAsTextFile("./results")
 
-    // print the counts
-    //    counts.take(200).foreach(println(_))
+    // print out first 10
+    wordCounts.take(10).foreach(println(_))
+
+    // block so we can look at http://localhost:4040
     Thread.sleep(1000 * 3600)
   }
 }

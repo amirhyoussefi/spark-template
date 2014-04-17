@@ -12,7 +12,7 @@ object Helper {
     val JARS = if (args.length > 0) Seq(args(1)) else Seq.empty
     var conf = new SparkConf()
       .setMaster(master)
-      .setAppName("Word Count Job")
+      .setAppName("Spark Template Job")
       .set("spark.executor.memory", "1g")
       .set("spark.default.parallelism", parallelism)
       .setJars(JARS)
