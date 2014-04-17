@@ -1,8 +1,7 @@
-package example
+package org.hackerdojo.spark
 
 import org.apache.spark.mllib.clustering.KMeans
 import org.apache.spark.util.Vector
-
 
 /**
  * See http://en.wikipedia.org/wiki/K-means_clustering
